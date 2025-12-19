@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Coding Agents - Company Endpoint Setup</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Permanent+Marker&family=Comic+Neue:wght@400;700&family=Cabin+Sketch:wght@400;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fffef9;
+            --ink: #1a1a1a;
+            --coral: #ff6b6b;
+            --teal: #20c997;
+            --purple: #845ef7;
+            --yellow: #ffd43b;
+            --blue: #339af0;
+            --orange: #ff922b;
+            --pink: #f06595;
+        }
+
+        .reveal-viewport {
+            background: var(--cream);
+        }
+
+        .reveal {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .reveal .slides section {
+            padding: 40px 60px;
+        }
+
+        .reveal p, .reveal li, .reveal td {
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* Fun hand-drawn title */
+        .fun-title {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 4.5em;
+            color: var(--ink);
+            transform: rotate(-2deg);
+            margin-bottom: 0.2em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .fun-title::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: var(--yellow);
+            z-index: -1;
+            transform: rotate(1deg);
+        }
+
+        .sketch-subtitle {
+            font-family: 'Cabin Sketch', cursive;
+            font-size: 1.8em;
+            color: var(--ink);
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        .reveal h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.8em;
+            font-weight: 900;
+            color: var(--ink);
+            margin-bottom: 0.6em;
+        }
+
+        .reveal h2 .highlight {
+            position: relative;
+            display: inline-block;
+        }
+
+        .reveal h2 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: -4px;
+            right: -4px;
+            height: 14px;
+            background: var(--yellow);
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+
+        .reveal h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.3em;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 0.5em;
+        }
+
+        /* Hand-drawn box */
+        .hand-box {
+            background: white;
+            padding: 32px;
+            border: 3px solid var(--ink);
+            border-radius: 3px;
+            box-shadow: 6px 6px 0 var(--ink);
+            position: relative;
+        }
+
+        .hand-box.coral { box-shadow: 6px 6px 0 var(--coral); border-color: var(--coral); }
+        .hand-box.teal { box-shadow: 6px 6px 0 var(--teal); border-color: var(--teal); }
+        .hand-box.purple { box-shadow: 6px 6px 0 var(--purple); border-color: var(--purple); }
+        .hand-box.yellow { box-shadow: 6px 6px 0 var(--yellow); border-color: var(--ink); background: var(--yellow); }
+
+        /* Sticker style */
+        .sticker {
+            display: inline-block;
+            padding: 8px 18px;
+            background: var(--yellow);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 0.85em;
+            transform: rotate(-2deg);
+            border: 2px solid var(--ink);
+            box-shadow: 3px 3px 0 var(--ink);
+            margin: 6px;
+        }
+
+        .sticker.coral { background: var(--coral); color: white; transform: rotate(1deg); }
+        .sticker.teal { background: var(--teal); color: white; transform: rotate(-1deg); }
+        .sticker.purple { background: var(--purple); color: white; transform: rotate(2deg); }
+        .sticker.blue { background: var(--blue); color: white; transform: rotate(-1deg); }
+
+        /* Terminal - retro style */
+        .terminal {
+            background: #2d2d2d;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 8px 8px 0 var(--ink);
+            margin: 24px 0;
+            text-align: left;
+            border: 3px solid var(--ink);
+        }
+
+        .terminal-header {
+            background: #3d3d3d;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,0,0,0.2);
+        }
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-title {
+            margin-left: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75em;
+            color: #999;
+        }
+
+        .terminal-body {
+            padding: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: #33ff33 !important;
+            line-height: 1.9;
+        }
+
+        .terminal-body p,
+        .terminal-body span {
+            color: #33ff33 !important;
+        }
+
+        .terminal-body .prompt { color: #33ff33 !important; }
+        .terminal-body .comment { color: #66cc66 !important; }
+        .terminal-body .string { color: #ff79c6 !important; }
+        .terminal-body .keyword { color: #66ff66 !important; }
+
+        /* Code blocks */
+        .reveal pre {
+            width: 100%;
+            font-size: 0.5em;
+            border-radius: 8px;
+            background: #1e1e1e;
+            box-shadow: 8px 8px 0 var(--ink);
+            margin: 24px 0;
+            border: 3px solid var(--ink);
+        }
+
+        .reveal pre code {
+            padding: 28px;
+            background: transparent;
+            line-height: 1.8;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: left !important;
+        }
+
+        /* Editor style wrapper */
+        .editor {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 8px 8px 0 var(--ink);
+            margin: 24px auto;
+            border: 3px solid var(--ink);
+            max-width: 800px;
+        }
+
+        .editor-header {
+            background: #323233;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #3c3c3c;
+        }
+
+        .editor-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .editor-dot.red { background: #ff5f56; }
+        .editor-dot.yellow { background: #ffbd2e; }
+        .editor-dot.green { background: #27c93f; }
+
+        .editor-tab {
+            margin-left: 16px;
+            padding: 6px 14px;
+            background: #1e1e1e;
+            border-radius: 6px 6px 0 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75em;
+            color: #9d9d9d;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editor-tab i { color: #f1fa8c; font-size: 0.9em; }
+
+        .editor-body {
+            display: flex;
+        }
+
+        .editor-gutter {
+            padding: 20px 0;
+            background: #1e1e1e;
+            border-right: 1px solid #3c3c3c;
+            text-align: right;
+            min-width: 45px;
+        }
+
+        .editor-gutter span {
+            display: block;
+            padding: 0 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75em;
+            color: #6e7681 !important;
+            line-height: 1.8;
+        }
+
+        .editor pre {
+            margin: 0;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            flex: 1;
+        }
+
+        .editor pre code {
+            padding: 20px 24px;
+            font-size: 1em;
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        /* Step */
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--coral);
+            border: 3px solid var(--ink);
+            border-radius: 50%;
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 1.3em;
+            color: white;
+            margin-right: 16px;
+            box-shadow: 3px 3px 0 var(--ink);
+        }
+
+        .step-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2em;
+            text-align: left;
+        }
+
+        /* URL box */
+        .url-box {
+            display: inline-block;
+            padding: 16px 32px;
+            background: var(--yellow);
+            border: 3px solid var(--ink);
+            font-family: 'Space Mono', monospace;
+            font-size: 1em;
+            font-weight: 700;
+            margin: 16px 0;
+            box-shadow: 5px 5px 0 var(--ink);
+            transform: rotate(-1deg);
+        }
+
+        .url-box a {
+            color: var(--ink) !important;
+            text-decoration: none;
+        }
+
+        /* Screenshot */
+        .screenshot {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 10px 10px 0 var(--ink);
+            border: 3px solid var(--ink);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .screenshot-caption {
+            padding: 14px 20px;
+            font-size: 0.85em;
+            color: var(--ink);
+            background: var(--yellow);
+            text-align: center;
+            font-weight: 600;
+            border-top: 3px solid var(--ink);
+        }
+
+        /* Info box */
+        .info-box {
+            background: white;
+            border: 3px solid var(--ink);
+            padding: 20px 24px;
+            margin: 20px 0;
+            box-shadow: 5px 5px 0 var(--teal);
+            text-align: left;
+        }
+
+        .info-box.warning {
+            box-shadow: 5px 5px 0 var(--coral);
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+
+        .info-box i { margin-right: 10px; }
+
+        /* Feature list */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .feature-list li {
+            padding: 14px 0;
+            border-bottom: 2px dashed #ddd;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.95em;
+        }
+
+        .feature-list li:last-child { border-bottom: none; }
+
+        .feature-list li i {
+            color: var(--teal);
+            margin-right: 14px;
+            margin-top: 4px;
+            font-size: 1.1em;
+        }
+
+        /* Section intro */
+        .section-intro { padding: 60px 0; }
+
+        .tool-logo {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            background: white;
+            border: 3px solid var(--ink);
+            border-radius: 20px;
+            box-shadow: 6px 6px 0 var(--ink);
+        }
+
+        .tool-logo.coral { box-shadow: 6px 6px 0 var(--coral); }
+        .tool-logo.purple { box-shadow: 6px 6px 0 var(--purple); }
+
+        /* Logo row */
+        .logo-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+            margin: 40px 0;
+        }
+
+        .logo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-item .logo-box {
+            width: 90px;
+            height: 90px;
+            background: white;
+            border: 3px solid var(--ink);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 5px 5px 0 var(--ink);
+        }
+
+        .logo-item span {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 1em;
+            color: var(--ink);
+        }
+
+        /* Config options */
+        .config-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .config-item {
+            background: white;
+            padding: 16px 20px;
+            border: 2px solid var(--ink);
+            box-shadow: 4px 4px 0 var(--purple);
+            text-align: left;
+        }
+
+        .config-item strong {
+            font-family: 'Space Mono', monospace;
+            color: var(--purple);
+        }
+
+        .config-item p {
+            margin: 6px 0 0;
+            font-size: 0.85em;
+        }
+
+        /* Table */
+        .simple-table {
+            width: 100%;
+            font-size: 0.9em;
+            text-align: left;
+        }
+
+        .simple-table td {
+            padding: 12px 8px;
+            border-bottom: 2px dashed #ddd;
+            vertical-align: middle;
+        }
+
+        .simple-table tr:last-child td { border-bottom: none; }
+
+        /* Inline code */
+        code:not([class]) {
+            background: var(--yellow);
+            color: var(--ink);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85em;
+            font-weight: 600;
+            border: 2px solid var(--ink);
+        }
+
+        /* Navigation hint */
+        .nav-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            font-size: 0.75em;
+            color: #999;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .nav-hint kbd {
+            background: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 2px solid var(--ink);
+            margin: 0 2px;
+            font-weight: 700;
+        }
+
+        /* Utilities */
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .mt-1 { margin-top: 16px; }
+        .mt-2 { margin-top: 32px; }
+        .mb-1 { margin-bottom: 16px; }
+        .mb-2 { margin-bottom: 32px; }
+
+        /* Links */
+        .reveal a { color: var(--coral); font-weight: 600; }
+
+        /* Progress */
+        .reveal .progress { color: var(--coral); height: 5px; }
+
+        .reveal .slide-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8em;
+            color: var(--ink);
+            background: var(--yellow);
+            padding: 6px 10px;
+            border: 2px solid var(--ink);
+            box-shadow: 2px 2px 0 var(--ink);
+        }
+
+        /* Doodle decorations */
+        .doodle-arrow {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2em;
+            color: var(--coral);
+            transform: rotate(-10deg);
+            display: inline-block;
+        }
+
+        .wiggle {
+            display: inline-block;
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Checklist style */
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .check-item i {
+            color: var(--teal);
+            font-size: 1.2em;
+            margin-top: 2px;
+        }
+
+        /* Resources grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 28px;
+            border: 3px solid var(--ink);
+            box-shadow: 6px 6px 0 var(--ink);
+            text-align: center;
+        }
+
+        .resource-card i {
+            font-size: 2em;
+            margin-bottom: 14px;
+        }
+
+        .resource-card.coral i { color: var(--coral); }
+        .resource-card.teal i { color: var(--teal); }
+        .resource-card.purple i { color: var(--purple); }
+        .resource-card.blue i { color: var(--blue); }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-color="#fffef9">
+                <h1 class="fun-title">AI Coding Agents</h1>
+                <p class="sketch-subtitle">Company Endpoint Setup Guide</p>
+
+                <div class="logo-row">
+                    <div class="logo-item">
+                        <div class="logo-box">
+                            <svg width='32' height='40' viewBox='0 0 32 40' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M24 32H8V16H24V32Z' fill='#ccc'/><path d='M24 8H8V32H24V8ZM32 40H0V0H32V40Z' fill='#1a1a1a'/></svg>
+                        </div>
+                        <span>OpenCode</span>
+                    </div>
+                    <div class="logo-item">
+                        <div class="logo-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M11.376 24L10.776 23.544L10.44 22.8L10.776 21.312L11.16 19.392L11.472 17.856L11.76 15.96L11.928 15.336L11.904 15.288L11.784 15.312L10.344 17.28L8.16 20.232L6.432 22.056L6.024 22.224L5.304 21.864L5.376 21.192L5.784 20.616L8.16 17.568L9.6 15.672L10.536 14.592L10.512 14.448H10.464L4.128 18.576L3 18.72L2.496 18.264L2.568 17.52L2.808 17.28L4.704 15.96L9.432 13.32L9.504 13.08L9.432 12.96H9.192L8.4 12.912L5.712 12.84L3.384 12.744L1.104 12.624L0.528 12.504L0 11.784L0.048 11.424L0.528 11.112L1.224 11.16L2.736 11.28L5.016 11.424L6.672 11.52L9.12 11.784H9.504L9.552 11.616L9.432 11.52L9.336 11.424L6.96 9.84L4.416 8.16L3.072 7.176L2.352 6.672L1.992 6.216L1.848 5.208L2.496 4.488L3.384 4.56L3.6 4.608L4.488 5.304L6.384 6.768L8.88 8.616L9.24 8.904L9.408 8.808V8.736L9.24 8.472L7.896 6.024L6.456 3.528L5.808 2.496L5.64 1.872C5.576 1.656 5.544 1.416 5.544 1.152L6.288 0.144001L6.696 0L7.704 0.144001L8.112 0.504001L8.736 1.92L9.72 4.152L11.28 7.176L11.736 8.088L11.976 8.904L12.072 9.168H12.24V9.024L12.36 7.296L12.6 5.208L12.84 2.52L12.912 1.752L13.296 0.840001L14.04 0.360001L14.616 0.624001L15.096 1.32L15.024 1.752L14.76 3.6L14.184 6.504L13.824 8.472H14.04L14.28 8.208L15.264 6.912L16.92 4.848L17.64 4.032L18.504 3.12L19.056 2.688H20.088L20.832 3.816L20.496 4.992L19.44 6.336L18.552 7.464L17.28 9.168L16.512 10.536L16.584 10.632H16.752L19.608 10.008L21.168 9.744L22.992 9.432L23.832 9.816L23.928 10.2L23.592 11.016L21.624 11.496L19.32 11.952L15.888 12.768L15.84 12.792L15.888 12.864L17.424 13.008L18.096 13.056H19.728L22.752 13.272L23.544 13.8L24 14.424L23.928 14.928L22.704 15.528L21.072 15.144L17.232 14.232L15.936 13.92H15.744V14.016L16.848 15.096L18.84 16.896L21.36 19.224L21.48 19.8L21.168 20.28L20.832 20.232L18.624 18.552L17.76 17.808L15.84 16.2H15.72V16.368L16.152 17.016L18.504 20.544L18.624 21.624L18.456 21.96L17.832 22.176L17.184 22.056L15.792 20.136L14.376 17.952L13.224 16.008L13.104 16.104L12.408 23.352L12.096 23.712L11.376 24Z" fill="#1a1a1a"></path></svg>
+                        </div>
+                        <span>Claude Code</span>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="sticker">Terminal Tools</span>
+                    <span class="sticker coral">AI Powered</span>
+                </div>
+            </section>
+
+            <!-- Agenda -->
+            <section data-background-color="#fffef9">
+                <h2 style="font-family: 'Permanent Marker', cursive; font-size: 3.2em; transform: rotate(-2deg);">Today's Menu <span style="font-size: 0.6em;">🍽️</span></h2>
+                <div class="grid-3 mt-2" style="gap: 40px; align-items: start;">
+                    <div class="fragment" style="transform: rotate(-3deg);">
+                        <div style="background: var(--coral); color: white; padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); position: relative; min-height: 160px;">
+                            <span style="position: absolute; top: -20px; left: -15px; font-size: 3em; font-family: 'Permanent Marker', cursive; color: var(--ink);">1</span>
+                            <i class="fa-solid fa-plug" style="font-size: 2.5em; margin-bottom: 12px; display: block;"></i>
+                            <h3 style="color: white; margin: 0 0 8px; font-size: 1.3em;">Unified Endpoint</h3>
+                            <p style="font-size: 0.85em; margin: 0; opacity: 0.9;">The magic gateway ✨</p>
+                        </div>
+                        <div style="font-family: 'Permanent Marker', cursive; font-size: 1.8em; margin-top: 10px; transform: rotate(5deg);">↓</div>
+                    </div>
+                    <div class="fragment" style="transform: rotate(2deg); margin-top: 30px;">
+                        <div style="background: var(--teal); color: white; padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); position: relative; min-height: 160px;">
+                            <span style="position: absolute; top: -20px; left: -15px; font-size: 3em; font-family: 'Permanent Marker', cursive; color: var(--ink);">2</span>
+                            <svg width='50' height='50' viewBox='0 0 32 40' fill='none' style="margin-bottom: 12px;"><path d='M24 32H8V16H24V32Z' fill='rgba(255,255,255,0.3)'/><path d='M24 8H8V32H24V8ZM32 40H0V0H32V40Z' fill='white'/></svg>
+                            <h3 style="color: white; margin: 0 0 8px; font-size: 1.3em;">OpenCode</h3>
+                            <p style="font-size: 0.85em; margin: 0; opacity: 0.9;">Open source beast 💪</p>
+                        </div>
+                        <div style="font-family: 'Permanent Marker', cursive; font-size: 1.8em; margin-top: 10px; transform: rotate(-3deg);">↓</div>
+                    </div>
+                    <div class="fragment" style="transform: rotate(-2deg);">
+                        <div style="background: var(--purple); color: white; padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); position: relative; min-height: 160px;">
+                            <span style="position: absolute; top: -20px; left: -15px; font-size: 3em; font-family: 'Permanent Marker', cursive; color: var(--ink);">3</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="white" style="margin-bottom: 12px;"><path d="M11.376 24L10.776 23.544L10.44 22.8L10.776 21.312L11.16 19.392L11.472 17.856L11.76 15.96L11.928 15.336L11.904 15.288L11.784 15.312L10.344 17.28L8.16 20.232L6.432 22.056L6.024 22.224L5.304 21.864L5.376 21.192L5.784 20.616L8.16 17.568L9.6 15.672L10.536 14.592L10.512 14.448H10.464L4.128 18.576L3 18.72L2.496 18.264L2.568 17.52L2.808 17.28L4.704 15.96L9.432 13.32L9.504 13.08L9.432 12.96H9.192L8.4 12.912L5.712 12.84L3.384 12.744L1.104 12.624L0.528 12.504L0 11.784L0.048 11.424L0.528 11.112L1.224 11.16L2.736 11.28L5.016 11.424L6.672 11.52L9.12 11.784H9.504L9.552 11.616L9.432 11.52L9.336 11.424L6.96 9.84L4.416 8.16L3.072 7.176L2.352 6.672L1.992 6.216L1.848 5.208L2.496 4.488L3.384 4.56L3.6 4.608L4.488 5.304L6.384 6.768L8.88 8.616L9.24 8.904L9.408 8.808V8.736L9.24 8.472L7.896 6.024L6.456 3.528L5.808 2.496L5.64 1.872L5.544 1.152L6.288 0.144001L6.696 0L7.704 0.144001L8.112 0.504001L8.736 1.92L9.72 4.152L11.28 7.176L11.736 8.088L11.976 8.904L12.072 9.168H12.24V9.024L12.36 7.296L12.6 5.208L12.84 2.52L12.912 1.752L13.296 0.840001L14.04 0.360001L14.616 0.624001L15.096 1.32L15.024 1.752L14.76 3.6L14.184 6.504L13.824 8.472H14.04L14.28 8.208L15.264 6.912L16.92 4.848L17.64 4.032L18.504 3.12L19.056 2.688H20.088L20.832 3.816L20.496 4.992L19.44 6.336L18.552 7.464L17.28 9.168L16.512 10.536L16.584 10.632H16.752L19.608 10.008L21.168 9.744L22.992 9.432L23.832 9.816L23.928 10.2L23.592 11.016L21.624 11.496L19.32 11.952L15.888 12.768L15.84 12.792L15.888 12.864L17.424 13.008L18.096 13.056H19.728L22.752 13.272L23.544 13.8L24 14.424L23.928 14.928L22.704 15.528L21.072 15.144L17.232 14.232L15.936 13.92H15.744V14.016L16.848 15.096L18.84 16.896L21.36 19.224L21.48 19.8L21.168 20.28L20.832 20.232L18.624 18.552L17.76 17.808L15.84 16.2H15.72V16.368L16.152 17.016L18.504 20.544L18.624 21.624L18.456 21.96L17.832 22.176L17.184 22.056L15.792 20.136L14.376 17.952L13.2 16.032V16.08L13.464 18.048L13.824 21.144L13.8 21.936L13.368 22.968L12.456 23.712L11.904 23.856L11.376 24Z"/></svg>
+                            <h3 style="color: white; margin: 0 0 8px; font-size: 1.3em;">Claude Code</h3>
+                            <p style="font-size: 0.85em; margin: 0; opacity: 0.9;">Official & powerful 🚀</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fragment" style="margin-top: 40px;">
+                    <span class="sticker" style="font-size: 1.1em; transform: rotate(-3deg);">~15 min</span>
+                    <span class="sticker coral" style="font-size: 1.1em; transform: rotate(2deg);">Let's go!</span>
+                </div>
+            </section>
+
+            <!-- Unified Endpoint -->
+            <section data-background-color="#fffef9">
+                <h2>The Unified <span class="highlight">Endpoint</span></h2>
+                <p style="font-size: 1.1em; max-width: 700px; margin: 0 auto 32px;">
+                    A single company-hosted gateway to multiple AI providers
+                </p>
+                <div class="grid-2">
+                    <div class="hand-box">
+                        <h3><i class="fa-solid fa-lightbulb" style="color: var(--coral);"></i> Why use it?</h3>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-check"></i> <span><strong>Out of tokens on Cursor?</strong> Switch seamlessly to another tool</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span><strong>Try different AI tools</strong> without separate subscriptions</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span><strong>Company-managed</strong> billing & access control</span></li>
+                        </ul>
+                    </div>
+                    <div class="hand-box">
+                        <h3><i class="fa-solid fa-server" style="color: var(--teal);"></i> Providers included</h3>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-check"></i> <span><strong>Anthropic</strong> — Claude Opus, Sonnet, Haiku</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span><strong>OpenAI</strong> — GPT-4o, o1, and more</span></li>
+                            <li><i class="fa-solid fa-check"></i> <span><strong>Google</strong> — Gemini Pro, Ultra</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Get API Key -->
+            <section data-background-color="#fffef9">
+                <h2>Get your <span class="highlight">API Key</span></h2>
+                <div class="hand-box" style="max-width: 700px; margin: 0 auto;">
+                    <div class="step-row">
+                        <span class="step-num">1</span>
+                        <span style="font-weight: 600; font-size: 1.05em;">Visit the Self-Service Portal</span>
+                    </div>
+                    <div class="url-box">
+                        <a href="https://ue-self-service.app.iu-it.org/" target="_blank">
+                            ue-self-service.app.iu-it.org
+                        </a>
+                    </div>
+                    <div class="step-row mt-2">
+                        <span class="step-num">2</span>
+                        <span style="font-weight: 600; font-size: 1.05em;">Login with your company SSO</span>
+                    </div>
+                    <div class="step-row">
+                        <span class="step-num">3</span>
+                        <span style="font-weight: 600; font-size: 1.05em;">Create & copy your API key</span>
+                    </div>
+                </div>
+                <div class="info-box warning mt-2" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+                    <p><i class="fa-solid fa-triangle-exclamation" style="color: var(--coral);"></i> <strong>Important:</strong> Never commit API keys to git!</p>
+                </div>
+            </section>
+
+            <!-- Environment Variables -->
+            <section data-background-color="#fffef9">
+                <h2>Environment <span class="highlight">Variables</span></h2>
+                <p style="margin-bottom: 24px;">Add these to <code>~/.zshrc</code> or <code>~/.bashrc</code></p>
+                <div class="terminal" style="max-width: 800px; margin: 0 auto;">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                        <span class="terminal-title">~/.zshrc</span>
+                    </div>
+                    <div class="terminal-body" style="font-size: 0.8em;">
+                        <p class="comment"># Unified Endpoint Configuration</p>
+                        <p></p>
+                        <p><span class="keyword">export</span> OPENAI_BASE_URL=<span class="string">"https://unified-endpoint-main.app.iu-it.org/openai/v1"</span></p>
+                        <p><span class="keyword">export</span> OPENAI_API_KEY=<span class="string">"YOUR_KEY"</span></p>
+                        <p></p>
+                        <p><span class="keyword">export</span> ANTHROPIC_BASE_URL=<span class="string">"https://unified-endpoint-main.app.iu-it.org/anthropic"</span></p>
+                        <p><span class="keyword">export</span> ANTHROPIC_AUTH_TOKEN=<span class="string">"YOUR_KEY"</span></p>
+                        <p></p>
+                        <p><span class="keyword">export</span> GOOGLE_GEMINI_BASE_URL=<span class="string">"https://unified-endpoint-main.app.iu-it.org/gemini/v1beta"</span></p>
+                        <p><span class="keyword">export</span> GEMINI_API_KEY=<span class="string">"YOUR_KEY"</span></p>
+                    </div>
+                </div>
+                <div class="terminal fragment" style="max-width: 400px; margin: 24px auto 0;">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                    </div>
+                    <div class="terminal-body" style="padding: 16px 24px;">
+                        <p><span class="prompt">$</span> source ~/.zshrc</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OpenCode Intro -->
+            <section data-background-color="#fffef9" class="section-intro">
+                <div class="tool-logo">
+                    <svg width='40' height='50' viewBox='0 0 32 40' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M24 32H8V16H24V32Z' fill='#ccc'/><path d='M24 8H8V32H24V8ZM32 40H0V0H32V40Z' fill='#1a1a1a'/></svg>
+                </div>
+                <h2 style="margin-bottom: 0.3em;">OpenCode</h2>
+                <p style="font-size: 1.1em; margin-bottom: 28px;">Open source AI coding agent for the terminal</p>
+
+                <div style="max-width: 700px; margin: 0 auto 28px;">
+                    <div class="check-item fragment">
+                        <span style="font-size: 1.6em; margin-right: 8px;">🤖</span>
+                        <span><strong>75+ LLM providers</strong> — Claude, GPT, Gemini, local models, and more</span>
+                    </div>
+                    <div class="check-item fragment">
+                        <span style="font-size: 1.6em; margin-right: 8px;">✨</span>
+                        <span><strong>Beautiful terminal UI</strong> — Rich TUI with syntax highlighting</span>
+                    </div>
+                    <div class="check-item fragment">
+                        <span style="font-size: 1.6em; margin-right: 8px;">🔥</span>
+                        <span><strong>Fully open source</strong> — 40K+ GitHub stars, community driven</span>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="sticker">Open Source</span>
+                    <span class="sticker teal">MCP Support</span>
+                </div>
+                <p class="mt-1" style="font-size: 0.85em;"><a href="https://opencode.ai/" target="_blank">opencode.ai</a></p>
+            </section>
+
+            <!-- OpenCode Screenshot -->
+            <section data-background-color="#fffef9">
+                <div class="screenshot" style="max-width: 950px; margin: 0 auto;">
+                    <img src="opencode-screenshot.png" alt="OpenCode TUI">
+                </div>
+            </section>
+
+            <!-- Install OpenCode -->
+            <section data-background-color="#fffef9">
+                <h2>Install <span class="highlight">OpenCode</span></h2>
+                <div class="terminal" style="max-width: 700px; margin: 0 auto;">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                        <span class="terminal-title">Quick Install</span>
+                    </div>
+                    <div class="terminal-body">
+                        <p><span class="prompt">$</span> curl -fsSL https://opencode.ai/install | bash</p>
+                    </div>
+                </div>
+                <p class="mt-2" style="color: #666; font-size: 0.9em;">Or use npm / homebrew:</p>
+                <div class="grid-2" style="max-width: 600px; margin: 16px auto 0;">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <div class="terminal-body" style="padding: 14px 20px; font-size: 0.85em;">
+                            <p><span class="prompt">$</span> npm i -g opencode-ai</p>
+                        </div>
+                    </div>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <div class="terminal-body" style="padding: 14px 20px; font-size: 0.85em;">
+                            <p><span class="prompt">$</span> brew install opencode</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OpenCode Config -->
+            <section data-background-color="#fffef9">
+                <h2>Configure <span class="highlight">OpenCode</span></h2>
+                <p style="margin-bottom: 16px;">Create <code>opencode.json</code> in your project root</p>
+                <div class="editor">
+                    <div class="editor-header">
+                        <div class="editor-dot red"></div>
+                        <div class="editor-dot yellow"></div>
+                        <div class="editor-dot green"></div>
+                        <div class="editor-tab"><i class="fa-solid fa-gear"></i> opencode.json</div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="editor-gutter">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span>
+                        </div>
+                        <pre><code class="language-json" data-trim>{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "https://unified-endpoint-main.app.iu-it.org/anthropic/v1",
+        "apiKey": "{env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    },
+    "openai": {
+      "options": {
+        "baseURL": "https://unified-endpoint-main.app.iu-it.org/openai/v1",
+        "apiKey": "{env:OPENAI_API_KEY}"
+      }
+    },
+    "google": {
+      "options": {
+        "baseURL": "https://unified-endpoint-main.app.iu-it.org/gemini/v1beta",
+        "apiKey": "{env:GEMINI_API_KEY}"
+      }
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Claude Code Intro -->
+            <section data-background-color="#fffef9" class="section-intro">
+                <div class="tool-logo coral">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"><path d="M11.376 24L10.776 23.544L10.44 22.8L10.776 21.312L11.16 19.392L11.472 17.856L11.76 15.96L11.928 15.336L11.904 15.288L11.784 15.312L10.344 17.28L8.16 20.232L6.432 22.056L6.024 22.224L5.304 21.864L5.376 21.192L5.784 20.616L8.16 17.568L9.6 15.672L10.536 14.592L10.512 14.448H10.464L4.128 18.576L3 18.72L2.496 18.264L2.568 17.52L2.808 17.28L4.704 15.96L9.432 13.32L9.504 13.08L9.432 12.96H9.192L8.4 12.912L5.712 12.84L3.384 12.744L1.104 12.624L0.528 12.504L0 11.784L0.048 11.424L0.528 11.112L1.224 11.16L2.736 11.28L5.016 11.424L6.672 11.52L9.12 11.784H9.504L9.552 11.616L9.432 11.52L9.336 11.424L6.96 9.84L4.416 8.16L3.072 7.176L2.352 6.672L1.992 6.216L1.848 5.208L2.496 4.488L3.384 4.56L3.6 4.608L4.488 5.304L6.384 6.768L8.88 8.616L9.24 8.904L9.408 8.808V8.736L9.24 8.472L7.896 6.024L6.456 3.528L5.808 2.496L5.64 1.872C5.576 1.656 5.544 1.416 5.544 1.152L6.288 0.144001L6.696 0L7.704 0.144001L8.112 0.504001L8.736 1.92L9.72 4.152L11.28 7.176L11.736 8.088L11.976 8.904L12.072 9.168H12.24V9.024L12.36 7.296L12.6 5.208L12.84 2.52L12.912 1.752L13.296 0.840001L14.04 0.360001L14.616 0.624001L15.096 1.32L15.024 1.752L14.76 3.6L14.184 6.504L13.824 8.472H14.04L14.28 8.208L15.264 6.912L16.92 4.848L17.64 4.032L18.504 3.12L19.056 2.688H20.088L20.832 3.816L20.496 4.992L19.44 6.336L18.552 7.464L17.28 9.168L16.512 10.536L16.584 10.632H16.752L19.608 10.008L21.168 9.744L22.992 9.432L23.832 9.816L23.928 10.2L23.592 11.016L21.624 11.496L19.32 11.952L15.888 12.768L15.84 12.792L15.888 12.864L17.424 13.008L18.096 13.056H19.728L22.752 13.272L23.544 13.8L24 14.424L23.928 14.928L22.704 15.528L21.072 15.144L17.232 14.232L15.936 13.92H15.744V14.016L16.848 15.096L18.84 16.896L21.36 19.224L21.48 19.8L21.168 20.28L20.832 20.232L18.624 18.552L17.76 17.808L15.84 16.2H15.72V16.368L16.152 17.016L18.504 20.544L18.624 21.624L18.456 21.96L17.832 22.176L17.184 22.056L15.792 20.136L14.376 17.952L13.224 16.008L13.104 16.104L12.408 23.352L12.096 23.712L11.376 24Z" fill="#1a1a1a"></path></svg>
+                </div>
+                <h2 style="margin-bottom: 0.3em;">Claude Code</h2>
+                <p style="font-size: 1.1em; margin-bottom: 28px;">Anthropic's official CLI coding agent</p>
+
+                <div style="max-width: 700px; margin: 0 auto 28px;">
+                    <div class="check-item fragment">
+                        <span style="font-size: 1.6em; margin-right: 8px;">🧠</span>
+                        <span><strong>Extended thinking</strong> — Deep reasoning for complex coding tasks</span>
+                    </div>
+                    <div class="check-item fragment">
+                        <span style="font-size: 1.6em; margin-right: 8px;">⚡</span>
+                        <span><strong>Official Anthropic tool</strong> — Built and maintained by the Claude team</span>
+                    </div>
+                    <div class="check-item fragment">
+                        <span style="font-size: 1.6em; margin-right: 8px;">🚀</span>
+                        <span><strong>Agentic coding</strong> — Runs commands, edits files, creates PRs</span>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="sticker coral">Official</span>
+                    <span class="sticker purple">Extended Thinking</span>
+                </div>
+                <p class="mt-1" style="font-size: 0.85em;"><a href="https://www.claude.com/product/claude-code" target="_blank">claude.com/product/claude-code</a></p>
+            </section>
+
+            <!-- Claude Code Screenshot -->
+            <section data-background-color="#fffef9">
+                <div class="screenshot" style="max-width: 950px; margin: 0 auto;">
+                    <img src="claude-screenshot.png" alt="Claude Code Terminal">
+                </div>
+            </section>
+
+            <!-- Install Claude Code -->
+            <section data-background-color="#fffef9">
+                <h2>Install <span class="highlight">Claude Code</span></h2>
+                <div class="terminal" style="max-width: 700px; margin: 0 auto;">
+                    <div class="terminal-header">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
+                        <span class="terminal-title">npm install</span>
+                    </div>
+                    <div class="terminal-body">
+                        <p><span class="prompt">$</span> npm install -g @anthropic-ai/claude-code</p>
+                    </div>
+                </div>
+                <div class="info-box mt-2" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+                    <p><i class="fa-solid fa-circle-check" style="color: var(--teal);"></i> Verify: <code>claude --version</code></p>
+                </div>
+            </section>
+
+            <!-- Claude Code Config -->
+            <section data-background-color="#fffef9">
+                <h2>Configure <span class="highlight">Claude Code</span></h2>
+                <p style="margin-bottom: 16px;">Create <code>~/.claude/settings.json</code></p>
+                <div class="editor">
+                    <div class="editor-header">
+                        <div class="editor-dot red"></div>
+                        <div class="editor-dot yellow"></div>
+                        <div class="editor-dot green"></div>
+                        <div class="editor-tab"><i class="fa-solid fa-gear"></i> settings.json</div>
+                    </div>
+                    <div class="editor-body">
+                        <div class="editor-gutter">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                        </div>
+                        <pre><code class="language-json" data-trim>{
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "ANTHROPIC_BASE_URL": "https://unified-endpoint-main.app.iu-it.org/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "YOUR_API_KEY_HERE"
+  },
+  "model": "opus",
+  "alwaysThinkingEnabled": true
+}</code></pre>
+                    </div>
+                </div>
+                <div class="config-grid" style="max-width: 600px; margin: 0 auto;">
+                    <div class="config-item">
+                        <strong>model</strong>
+                        <p>opus, sonnet, or haiku</p>
+                    </div>
+                    <div class="config-item">
+                        <strong>alwaysThinkingEnabled</strong>
+                        <p>Extended reasoning mode</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Reference -->
+            <section data-background-color="#fffef9">
+                <h2>Quick <span class="highlight">Reference</span></h2>
+                <div class="grid-2" style="align-items: stretch;">
+                    <div class="hand-box" style="display: flex; flex-direction: column; min-height: 220px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <svg width='24' height='30' viewBox='0 0 32 40' fill='none'><path d='M24 32H8V16H24V32Z' fill='#ccc'/><path d='M24 8H8V32H24V8ZM32 40H0V0H32V40Z' fill='#1a1a1a'/></svg>
+                            <h3 style="margin: 0;">OpenCode</h3>
+                        </div>
+                        <table class="simple-table">
+                            <tr>
+                                <td style="width: 60px; font-weight: 600;">Install</td>
+                                <td><code style="font-size: 0.7em; white-space: nowrap;">curl -fsSL https://opencode.ai/install | bash</code></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Config</td>
+                                <td><code>./opencode.json</code></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Run</td>
+                                <td><code>opencode</code></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="hand-box coral" style="display: flex; flex-direction: column; min-height: 220px;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M11.376 24L10.776 23.544L10.44 22.8L10.776 21.312L11.16 19.392L11.472 17.856L11.76 15.96L11.928 15.336L11.904 15.288L11.784 15.312L10.344 17.28L8.16 20.232L6.432 22.056L6.024 22.224L5.304 21.864L5.376 21.192L5.784 20.616L8.16 17.568L9.6 15.672L10.536 14.592L10.512 14.448H10.464L4.128 18.576L3 18.72L2.496 18.264L2.568 17.52L2.808 17.28L4.704 15.96L9.432 13.32L9.504 13.08L9.432 12.96H9.192L8.4 12.912L5.712 12.84L3.384 12.744L1.104 12.624L0.528 12.504L0 11.784L0.048 11.424L0.528 11.112L1.224 11.16L2.736 11.28L5.016 11.424L6.672 11.52L9.12 11.784H9.504L9.552 11.616L9.432 11.52L9.336 11.424L6.96 9.84L4.416 8.16L3.072 7.176L2.352 6.672L1.992 6.216L1.848 5.208L2.496 4.488L3.384 4.56L3.6 4.608L4.488 5.304L6.384 6.768L8.88 8.616L9.24 8.904L9.408 8.808V8.736L9.24 8.472L7.896 6.024L6.456 3.528L5.808 2.496L5.64 1.872C5.576 1.656 5.544 1.416 5.544 1.152L6.288 0.144001L6.696 0L7.704 0.144001L8.112 0.504001L8.736 1.92L9.72 4.152L11.28 7.176L11.736 8.088L11.976 8.904L12.072 9.168H12.24V9.024L12.36 7.296L12.6 5.208L12.84 2.52L12.912 1.752L13.296 0.840001L14.04 0.360001L14.616 0.624001L15.096 1.32L15.024 1.752L14.76 3.6L14.184 6.504L13.824 8.472H14.04L14.28 8.208L15.264 6.912L16.92 4.848L17.64 4.032L18.504 3.12L19.056 2.688H20.088L20.832 3.816L20.496 4.992L19.44 6.336L18.552 7.464L17.28 9.168L16.512 10.536L16.584 10.632H16.752L19.608 10.008L21.168 9.744L22.992 9.432L23.832 9.816L23.928 10.2L23.592 11.016L21.624 11.496L19.32 11.952L15.888 12.768L15.84 12.792L15.888 12.864L17.424 13.008L18.096 13.056H19.728L22.752 13.272L23.544 13.8L24 14.424L23.928 14.928L22.704 15.528L21.072 15.144L17.232 14.232L15.936 13.92H15.744V14.016L16.848 15.096L18.84 16.896L21.36 19.224L21.48 19.8L21.168 20.28L20.832 20.232L18.624 18.552L17.76 17.808L15.84 16.2H15.72V16.368L16.152 17.016L18.504 20.544L18.624 21.624L18.456 21.96L17.832 22.176L17.184 22.056L15.792 20.136L14.376 17.952L13.2 16.032V16.08L13.464 18.048L13.824 21.144L13.8 21.936L13.368 22.968L12.456 23.712L11.904 23.856L11.376 24Z" fill="var(--coral)"/></svg>
+                            <h3 style="margin: 0;">Claude Code</h3>
+                        </div>
+                        <table class="simple-table">
+                            <tr>
+                                <td style="width: 60px; font-weight: 600;">Install</td>
+                                <td><code style="font-size: 0.7em; white-space: nowrap;">npm i -g @anthropic-ai/claude-code</code></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Config</td>
+                                <td><code>~/.claude/settings.json</code></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 600;">Run</td>
+                                <td><code>claude</code></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources -->
+            <section data-background-color="#fffef9">
+                <h2>Resources</h2>
+                <div class="resources-grid" style="max-width: 750px; margin: 32px auto 0;">
+                    <div class="resource-card coral">
+                        <i class="fa-solid fa-key"></i>
+                        <h3>API Keys</h3>
+                        <a href="https://ue-self-service.app.iu-it.org/" target="_blank" style="font-size: 0.85em;">ue-self-service.app.iu-it.org</a>
+                    </div>
+                    <div class="resource-card teal">
+                        <i class="fa-solid fa-book"></i>
+                        <h3>OpenCode Docs</h3>
+                        <a href="https://opencode.ai/docs" target="_blank" style="font-size: 0.85em;">opencode.ai/docs</a>
+                    </div>
+                    <div class="resource-card purple">
+                        <i class="fa-brands fa-github"></i>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/sst/opencode" target="_blank" style="font-size: 0.85em;">github.com/sst/opencode</a>
+                    </div>
+                    <div class="resource-card blue">
+                        <i class="fa-solid fa-robot"></i>
+                        <h3>Claude Docs</h3>
+                        <a href="https://docs.anthropic.com" target="_blank" style="font-size: 0.85em;">docs.anthropic.com</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Slide -->
+            <section data-background-color="#fffef9" style="position: relative;">
+                <img src="https://media.giphy.com/media/mIZ9rPeMKefm0/giphy.gif" alt="" style="position: absolute; bottom: 20px; right: 40px; width: 200px; opacity: 0.8; border: 3px solid var(--ink); border-radius: 12px; box-shadow: 5px 5px 0 var(--ink);">
+                <h1 class="fun-title" style="font-size: 3.5em;">Let's go!</h1>
+                <p style="font-size: 1.3em; margin: 28px 0 40px;">Questions?</p>
+                <div class="url-box" style="font-size: 1.1em;">
+                    <a href="https://ue-self-service.app.iu-it.org/" target="_blank">
+                        Get your API key →
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="nav-hint">
+        <kbd>Space</kbd> or <kbd>→</kbd> to navigate
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            progress: true,
+            center: true,
+            transition: 'slide',
+            transitionSpeed: 'fast',
+            backgroundTransition: 'fade',
+            plugins: [ RevealHighlight ]
+        });
+    </script>
+</body>
+</html>
