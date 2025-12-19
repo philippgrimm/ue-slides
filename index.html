@@ -8,99 +8,332 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Permanent+Marker&family=Comic+Neue:wght@400;700&family=Cabin+Sketch:wght@400;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --cream: #fffef9;
-            --ink: #1a1a1a;
+            --paper: #f0f0e6;
+            --ink: #111;
+            --cyan: #00f0ff;
+            --magenta: #ff00ff;
+            --yellow: #ffff00;
+            --black: #000000;
+            /* Restored colors */
             --coral: #ff6b6b;
             --teal: #20c997;
             --purple: #845ef7;
-            --yellow: #ffd43b;
             --blue: #339af0;
             --orange: #ff922b;
             --pink: #f06595;
         }
-
+        
         .reveal-viewport {
-            background: var(--cream);
+            background-color: #f4f4f0;
+            /* Noise texture using CSS gradients */
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+            background-size: auto, 200px 200px;
         }
+        
+        /* Remove Tape */
+        .tape { display: none !important; }
 
         .reveal {
-            font-family: 'Inter', -apple-system, sans-serif;
-            font-weight: 500;
+            font-family: 'Special Elite', monospace;
+            font-weight: 400;
             color: var(--ink);
         }
 
         .reveal .slides section {
             padding: 40px 60px;
+            height: 100%;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
-
-        .reveal p, .reveal li, .reveal td {
+        
+        /* First slide - extra emphasis on centering */
+        .reveal .slides section:first-child {
+            text-align: center !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+        
+        .reveal p, .reveal li, .reveal td, .reveal span {
             color: var(--ink);
             line-height: 1.7;
+            margin-bottom: 12px;
+            font-family: 'Special Elite', monospace;
         }
 
-        /* Fun hand-drawn title */
+        /* Headings - Permanent Marker */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            font-family: 'Permanent Marker', cursive !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* FLASHY Title for first slide */
         .fun-title {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 4.5em;
+            font-family: 'Permanent Marker', cursive !important;
+            font-size: 5em !important;
+            text-transform: uppercase;
+            letter-spacing: 4px;
             color: var(--ink);
+            text-shadow: 
+                -4px -4px 0 var(--cyan),
+                4px 4px 0 var(--magenta),
+                0 0 40px rgba(255, 0, 255, 0.3);
             transform: rotate(-2deg);
-            margin-bottom: 0.2em;
+            margin-bottom: 0.3em !important;
+            animation: title-pulse 3s ease-in-out infinite;
             position: relative;
             display: inline-block;
         }
-
-        .fun-title::after {
+        
+        .fun-title::before {
             content: '';
             position: absolute;
-            bottom: 5px;
-            left: 0;
-            right: 0;
-            height: 12px;
+            top: -10px;
+            left: -20px;
+            right: -20px;
+            bottom: -10px;
             background: var(--yellow);
             z-index: -1;
             transform: rotate(1deg);
+            box-shadow: 8px 8px 0 var(--ink);
+        }
+        
+        @keyframes title-pulse {
+            0%, 100% { 
+                text-shadow: 
+                    -4px -4px 0 var(--cyan),
+                    4px 4px 0 var(--magenta),
+                    0 0 40px rgba(255, 0, 255, 0.3);
+            }
+            50% { 
+                text-shadow: 
+                    -6px -6px 0 var(--cyan),
+                    6px 6px 0 var(--magenta),
+                    0 0 60px rgba(255, 0, 255, 0.5);
+            }
+        }
+        
+        .sketch-subtitle {
+            font-family: 'Permanent Marker', cursive !important;
+            font-size: 1.5em;
+            color: var(--ink);
+            margin-top: 20px;
+            transform: rotate(1deg);
         }
 
-        .sketch-subtitle {
-            font-family: 'Cabin Sketch', cursive;
-            font-size: 1.8em;
+        .reveal .slides section {
+            padding: 40px 60px; /* Reduced padding slightly to prevent overflow */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Ensure horizontal centering */
+        }
+        
+        /* Ensure left-aligned content stays left-aligned */
+        .reveal .slides section.has-text-left {
+            align-items: flex-start;
+        }
+        
+        .reveal p, .reveal li, .reveal td {
             color: var(--ink);
-            letter-spacing: 2px;
-            opacity: 0.8;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            font-family: 'Special Elite', monospace;
+        }
+
+        .reveal ul {
+            margin-bottom: 24px;
+        }
+
+        .feature-list {
+            text-align: left;
+            width: 100%;
+        }
+
+        .feature-list li {
+            padding: 16px 0;
+            border-bottom: 2px dashed #999;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.95em;
+            font-family: 'Special Elite', monospace;
+        }
+
+        .robot-gif {
+            position: absolute; 
+            bottom: 80px; 
+            right: 80px; 
+            width: 250px; 
+            opacity: 1; 
+            border: 4px solid var(--ink); 
+            border-radius: 4px; 
+            box-shadow: 8px 8px 0 var(--ink);
+            transform: rotate(-5deg);
+            z-index: 10;
+        }
+        
+        /* Code and terminal elements use JetBrains Mono */
+        .reveal code, 
+        .terminal-body, 
+        .terminal-body p,
+        .terminal-body span,
+        .editor-body,
+        .editor-body *,
+        .editor pre,
+        .editor pre code,
+        .editor pre code *,
+        .editor pre code span,
+        .reveal pre code,
+        .reveal pre code *,
+        .reveal pre code span {
+            font-family: 'JetBrains Mono', monospace !important;
+            color: inherit !important;
+        }
+        
+        /* Ensure editor/code text colors are visible */
+        .editor pre code {
+            color: #c9d1d9 !important;
+        }
+        
+        .editor pre code .hljs-punctuation,
+        .editor pre code .hljs-bracket {
+            color: #c9d1d9 !important;
+        }
+
+        /* CMYK Text Effect for headings only */
+        .reveal h1 {
+            font-family: 'Special Elite', monospace;
+            font-weight: 700;
+        }
+
+        /* Use Permanent Marker for all other headings and accents */
+        .reveal h2, .reveal h3, .sticker, .step-num, .check-item strong {
+            font-family: 'Permanent Marker', cursive !important;
+            letter-spacing: 0.5px;
+        }
+
+        /* Adjust size for h3 since Marker is larger */
+        .reveal h3 {
+            font-size: 1.5em; 
+            margin-bottom: 0.5em;
+            color: var(--ink);
+        }
+
+        .cmyk-text {
+            text-shadow: 
+                -3px -3px 0 rgba(0, 240, 255, 0.6), /* Cyan */
+                3px 3px 0 rgba(255, 0, 255, 0.6);   /* Magenta */
+            mix-blend-mode: multiply;
+        }
+
+        /* Torn Paper Box */
+        .torn-box {
+            background: white;
+            padding: 32px;
+            position: relative;
+            box-shadow: 10px 10px 0 var(--black);
+            border: 2px solid var(--black);
+            /* Rough edges via clip-path */
+            clip-path: polygon(
+                0% 10px, 5% 0%, 10% 10px, 15% 0%, 20% 8px, 25% 0%, 30% 5px, 35% 0%, 40% 8px, 45% 0%, 50% 5px, 55% 0%, 60% 8px, 65% 0%, 70% 5px, 75% 0%, 80% 8px, 85% 0%, 90% 5px, 95% 0%, 100% 10px,
+                100% 100%, 0% 100%
+            );
+            transform: rotate(-1deg);
+        }
+        
+        /* Replace .hand-box with this style implicitly */
+        .hand-box {
+            background: white;
+            padding: 32px;
+            border: 3px solid var(--black);
+            box-shadow: 8px 8px 0 var(--black);
+            position: relative;
+            font-family: 'Inter', sans-serif; /* Keep content readable */
+        }
+
+        /* CMYK Shadows for boxes */
+        .hand-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 3px solid var(--cyan);
+            transform: translate(-6px, -6px);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .hand-box::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 3px solid var(--magenta);
+            transform: translate(6px, 6px);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .reveal h2 {
-            font-family: 'Inter', sans-serif;
-            font-size: 2.8em;
-            font-weight: 900;
-            color: var(--ink);
-            margin-bottom: 0.6em;
+            font-family: 'Permanent Marker', cursive !important;
+            font-size: 3.2em; /* Slightly smaller to fit better */
+            color: var(--black);
+            margin-bottom: 0.8em; /* More space below headings */
+            text-transform: uppercase;
+            transform: rotate(-1.5deg); /* Slightly less rotation */
+            text-shadow: -3px -3px 0 var(--cyan), 3px 3px 0 var(--magenta);
+            letter-spacing: 1px;
         }
 
         .reveal h2 .highlight {
-            position: relative;
+            background: var(--yellow);
+            padding: 0 10px;
+            box-shadow: 5px 5px 0 var(--black);
+            transform: skew(-5deg);
             display: inline-block;
+            font-family: 'Permanent Marker', cursive !important;
+        }
+        
+        .reveal h2 .highlight::after { display: none; } /* Remove old highlighter */
+
+        /* Tape Effect - darker/grungier */
+        .tape {
+            background: rgba(255, 255, 230, 0.6);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,0,0,0.1);
         }
 
-        .reveal h2 .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: -4px;
-            right: -4px;
-            height: 14px;
-            background: var(--yellow);
-            z-index: -1;
-            transform: rotate(-1deg);
+        /* Sticker Update */
+        .sticker {
+            background: var(--black);
+            color: white !important;
+            font-family: 'Permanent Marker', cursive !important;
+            border: none;
+            box-shadow: none;
+            transform: rotate(-5deg);
+            padding: 8px 16px;
+            display: inline-block;
+        }
+        .sticker.coral { background: var(--magenta); color: white !important; transform: rotate(3deg); }
+        .sticker.teal { background: var(--cyan); color: var(--black) !important; transform: rotate(-2deg); }
+        .sticker.purple { background: var(--purple); color: white !important; transform: rotate(2deg); }
+        
+        /* Terminal override for Zine look */
+        .terminal, .editor {
+            border: 4px solid var(--black);
+            box-shadow: 15px 15px 0 rgba(0,0,0,0.2);
         }
 
         .reveal h3 {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Permanent Marker', cursive !important;
             font-size: 1.3em;
-            font-weight: 800;
+            font-weight: 400;
             color: var(--ink);
             margin-bottom: 0.5em;
         }
@@ -120,35 +353,15 @@
         .hand-box.purple { box-shadow: 6px 6px 0 var(--purple); border-color: var(--purple); }
         .hand-box.yellow { box-shadow: 6px 6px 0 var(--yellow); border-color: var(--ink); background: var(--yellow); }
 
-        /* Sticker style */
-        .sticker {
-            display: inline-block;
-            padding: 8px 18px;
-            background: var(--yellow);
-            color: var(--ink);
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 0.85em;
-            transform: rotate(-2deg);
-            border: 2px solid var(--ink);
-            box-shadow: 3px 3px 0 var(--ink);
-            margin: 6px;
-        }
+        /* Legacy styles removed/consolidated */
 
-        .sticker.coral { background: var(--coral); color: white; transform: rotate(1deg); }
-        .sticker.teal { background: var(--teal); color: white; transform: rotate(-1deg); }
-        .sticker.purple { background: var(--purple); color: white; transform: rotate(2deg); }
-        .sticker.blue { background: var(--blue); color: white; transform: rotate(-1deg); }
-
-        /* Terminal - retro style */
+        /* Terminal base styles */
         .terminal {
             background: #2d2d2d;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 8px 8px 0 var(--ink);
             margin: 24px 0;
             text-align: left;
-            border: 3px solid var(--ink);
         }
 
         .terminal-header {
@@ -327,9 +540,9 @@
             background: var(--coral);
             border: 3px solid var(--ink);
             border-radius: 50%;
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 1.3em;
+            font-family: 'Special Elite', cursive;
+            font-weight: 700;
+            font-size: 1.5em;
             color: white;
             margin-right: 16px;
             box-shadow: 3px 3px 0 var(--ink);
@@ -361,13 +574,25 @@
             text-decoration: none;
         }
 
-        /* Screenshot */
-        .screenshot {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 10px 10px 0 var(--ink);
-            border: 3px solid var(--ink);
+        /* Ensure containers take full width */
+        .grid-2, .grid-3, .terminal, .editor, .screenshot, .resources-grid {
+            width: 100%;
+            max-width: 1000px; /* Prevent getting too wide on huge screens */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Robot Adjustment */
+        .robot-gif {
+            position: absolute; 
+            bottom: 50px; 
+            right: 80px; 
+            width: 200px; 
+            opacity: 0.8; 
+            border: 3px solid var(--ink); 
+            border-radius: 12px; 
+            box-shadow: 5px 5px 0 var(--ink);
+            transform: rotate(-5deg);
         }
 
         .screenshot img {
@@ -480,9 +705,9 @@
         }
 
         .logo-item span {
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 1em;
+            font-family: 'Permanent Marker', cursive !important;
+            font-weight: 400;
+            font-size: 1.1em;
             color: var(--ink);
         }
 
@@ -646,7 +871,7 @@
     <div class="reveal">
         <div class="slides">
             <!-- Title Slide -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h1 class="fun-title">AI Coding Agents</h1>
                 <p class="sketch-subtitle">Company Endpoint Setup Guide</p>
 
@@ -672,32 +897,32 @@
             </section>
 
             <!-- Agenda -->
-            <section data-background-color="#fffef9">
-                <h2 style="font-family: 'Permanent Marker', cursive; font-size: 3.2em; transform: rotate(-2deg);">Today's Menu <span style="font-size: 0.6em;">🍽️</span></h2>
+            <section>
+                <h2 style="font-family: 'Permanent Marker', cursive; font-size: 3.2em; transform: rotate(-2deg); margin-bottom: 50px;">Today's Menu <span style="font-size: 0.6em;">🍽️</span></h2>
                 <div class="grid-3 mt-2" style="gap: 40px; align-items: start;">
-                    <div class="fragment" style="transform: rotate(-3deg);">
-                        <div style="background: var(--coral); color: white; padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); position: relative; height: 180px;">
-                            <span style="position: absolute; top: -20px; left: -15px; font-size: 3em; font-family: 'Permanent Marker', cursive; color: var(--ink);">1</span>
+                    <div class="fragment" style="--rot: -3deg; animation: float-gentle 6s ease-in-out infinite;">
+                        <div style="background: var(--magenta); color: white; padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 12px 12px 0 var(--ink); position: relative; height: 180px; transform: rotate(-3deg);">
+                            <span style="position: absolute; top: -25px; left: -20px; font-size: 3.5em; font-family: 'Permanent Marker', cursive; color: var(--ink); text-shadow: 3px 3px 0 white;">1</span>
                             <h3 style="color: white; margin: 0 0 8px; font-size: 1.3em; padding-top: 20px;">Unified Endpoint</h3>
                             <p style="font-size: 0.85em; margin: 0; opacity: 0.9;">The magic gateway ✨</p>
                         </div>
-                        <div style="font-family: 'Permanent Marker', cursive; font-size: 1.8em; margin-top: 10px; transform: rotate(5deg);">↓</div>
+                        <div style="font-family: 'Permanent Marker', cursive; font-size: 1.8em; margin-top: 15px; transform: rotate(5deg); color: var(--ink);">↓</div>
                     </div>
-                    <div class="fragment" style="transform: rotate(2deg); margin-top: 30px;">
-                        <div style="background: var(--teal); color: white; padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); position: relative; height: 180px;">
-                            <span style="position: absolute; top: -20px; left: -15px; font-size: 3em; font-family: 'Permanent Marker', cursive; color: var(--ink);">2</span>
-                            <svg width='50' height='50' viewBox='0 0 32 40' fill='none' style="margin-bottom: 12px;"><path d='M24 32H8V16H24V32Z' fill='rgba(255,255,255,0.3)'/><path d='M24 8H8V32H24V8ZM32 40H0V0H32V40Z' fill='white'/></svg>
-                            <h3 style="color: white; margin: 0 0 8px; font-size: 1.3em;">OpenCode</h3>
-                            <p style="font-size: 0.85em; margin: 0; opacity: 0.9;">Open source beast 💪</p>
+                    <div class="fragment" style="--rot: 2deg; animation: float-gentle 7s ease-in-out infinite; animation-delay: 1s; margin-top: 30px;">
+                        <div style="background: var(--cyan); color: var(--black); padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 12px 12px 0 var(--ink); position: relative; height: 180px; transform: rotate(2deg);">
+                            <span style="position: absolute; top: -25px; left: -20px; font-size: 3.5em; font-family: 'Permanent Marker', cursive; color: var(--ink); text-shadow: 3px 3px 0 white;">2</span>
+                            <svg width='50' height='50' viewBox='0 0 32 40' fill='none' style="margin-bottom: 12px;"><path d='M24 32H8V16H24V32Z' fill='rgba(0,0,0,0.2)'/><path d='M24 8H8V32H24V8ZM32 40H0V0H32V40Z' fill='var(--black)'/></svg>
+                            <h3 style="color: var(--black); margin: 0 0 8px; font-size: 1.3em;">OpenCode</h3>
+                            <p style="font-size: 0.85em; margin: 0; color: var(--black);">Open source beast 💪</p>
                         </div>
-                        <div style="font-family: 'Permanent Marker', cursive; font-size: 1.8em; margin-top: 10px; transform: rotate(-3deg);">↓</div>
+                        <div style="font-family: 'Permanent Marker', cursive; font-size: 1.8em; margin-top: 15px; transform: rotate(-3deg); color: var(--ink);">↓</div>
                     </div>
-                    <div class="fragment" style="transform: rotate(-2deg);">
-                        <div style="background: var(--purple); color: white; padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); position: relative; height: 180px;">
-                            <span style="position: absolute; top: -20px; left: -15px; font-size: 3em; font-family: 'Permanent Marker', cursive; color: var(--ink);">3</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="white" style="margin-bottom: 12px;"><path d="M11.376 24L10.776 23.544L10.44 22.8L10.776 21.312L11.16 19.392L11.472 17.856L11.76 15.96L11.928 15.336L11.904 15.288L11.784 15.312L10.344 17.28L8.16 20.232L6.432 22.056L6.024 22.224L5.304 21.864L5.376 21.192L5.784 20.616L8.16 17.568L9.6 15.672L10.536 14.592L10.512 14.448H10.464L4.128 18.576L3 18.72L2.496 18.264L2.568 17.52L2.808 17.28L4.704 15.96L9.432 13.32L9.504 13.08L9.432 12.96H9.192L8.4 12.912L5.712 12.84L3.384 12.744L1.104 12.624L0.528 12.504L0 11.784L0.048 11.424L0.528 11.112L1.224 11.16L2.736 11.28L5.016 11.424L6.672 11.52L9.12 11.784H9.504L9.552 11.616L9.432 11.52L9.336 11.424L6.96 9.84L4.416 8.16L3.072 7.176L2.352 6.672L1.992 6.216L1.848 5.208L2.496 4.488L3.384 4.56L3.6 4.608L4.488 5.304L6.384 6.768L8.88 8.616L9.24 8.904L9.408 8.808V8.736L9.24 8.472L7.896 6.024L6.456 3.528L5.808 2.496L5.64 1.872L5.544 1.152L6.288 0.144001L6.696 0L7.704 0.144001L8.112 0.504001L8.736 1.92L9.72 4.152L11.28 7.176L11.736 8.088L11.976 8.904L12.072 9.168H12.24V9.024L12.36 7.296L12.6 5.208L12.84 2.52L12.912 1.752L13.296 0.840001L14.04 0.360001L14.616 0.624001L15.096 1.32L15.024 1.752L14.76 3.6L14.184 6.504L13.824 8.472H14.04L14.28 8.208L15.264 6.912L16.92 4.848L17.64 4.032L18.504 3.12L19.056 2.688H20.088L20.832 3.816L20.496 4.992L19.44 6.336L18.552 7.464L17.28 9.168L16.512 10.536L16.584 10.632H16.752L19.608 10.008L21.168 9.744L22.992 9.432L23.832 9.816L23.928 10.2L23.592 11.016L21.624 11.496L19.32 11.952L15.888 12.768L15.84 12.792L15.888 12.864L17.424 13.008L18.096 13.056H19.728L22.752 13.272L23.544 13.8L24 14.424L23.928 14.928L22.704 15.528L21.072 15.144L17.232 14.232L15.936 13.92H15.744V14.016L16.848 15.096L18.84 16.896L21.36 19.224L21.48 19.8L21.168 20.28L20.832 20.232L18.624 18.552L17.76 17.808L15.84 16.2H15.72V16.368L16.152 17.016L18.504 20.544L18.624 21.624L18.456 21.96L17.832 22.176L17.184 22.056L15.792 20.136L14.376 17.952L13.2 16.032V16.08L13.464 18.048L13.824 21.144L13.8 21.936L13.368 22.968L12.456 23.712L11.904 23.856L11.376 24Z"/></svg>
-                            <h3 style="color: white; margin: 0 0 8px; font-size: 1.3em;">Claude Code</h3>
-                            <p style="font-size: 0.85em; margin: 0; opacity: 0.9;">Official & powerful 🚀</p>
+                    <div class="fragment" style="--rot: -2deg; animation: float-gentle 5s ease-in-out infinite; animation-delay: 2s;">
+                        <div style="background: var(--yellow); color: var(--black); padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 12px 12px 0 var(--ink); position: relative; height: 180px; transform: rotate(-2deg);">
+                            <span style="position: absolute; top: -25px; left: -20px; font-size: 3.5em; font-family: 'Permanent Marker', cursive; color: var(--ink); text-shadow: 3px 3px 0 white;">3</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="var(--black)" style="margin-bottom: 12px;"><path d="M11.376 24L10.776 23.544L10.44 22.8L10.776 21.312L11.16 19.392L11.472 17.856L11.76 15.96L11.928 15.336L11.904 15.288L11.784 15.312L10.344 17.28L8.16 20.232L6.432 22.056L6.024 22.224L5.304 21.864L5.376 21.192L5.784 20.616L8.16 17.568L9.6 15.672L10.536 14.592L10.512 14.448H10.464L4.128 18.576L3 18.72L2.496 18.264L2.568 17.52L2.808 17.28L4.704 15.96L9.432 13.32L9.504 13.08L9.432 12.96H9.192L8.4 12.912L5.712 12.84L3.384 12.744L1.104 12.624L0.528 12.504L0 11.784L0.048 11.424L0.528 11.112L1.224 11.16L2.736 11.28L5.016 11.424L6.672 11.52L9.12 11.784H9.504L9.552 11.616L9.432 11.52L9.336 11.424L6.96 9.84L4.416 8.16L3.072 7.176L2.352 6.672L1.992 6.216L1.848 5.208L2.496 4.488L3.384 4.56L3.6 4.608L4.488 5.304L6.384 6.768L8.88 8.616L9.24 8.904L9.408 8.808V8.736L9.24 8.472L7.896 6.024L6.456 3.528L5.808 2.496L5.64 1.872L5.544 1.152L6.288 0.144001L6.696 0L7.704 0.144001L8.112 0.504001L8.736 1.92L9.72 4.152L11.28 7.176L11.736 8.088L11.976 8.904L12.072 9.168H12.24V9.024L12.36 7.296L12.6 5.208L12.84 2.52L12.912 1.752L13.296 0.840001L14.04 0.360001L14.616 0.624001L15.096 1.32L15.024 1.752L14.76 3.6L14.184 6.504L13.824 8.472H14.04L14.28 8.208L15.264 6.912L16.92 4.848L17.64 4.032L18.504 3.12L19.056 2.688H20.088L20.832 3.816L20.496 4.992L19.44 6.336L18.552 7.464L17.28 9.168L16.512 10.536L16.584 10.632H16.752L19.608 10.008L21.168 9.744L22.992 9.432L23.832 9.816L23.928 10.2L23.592 11.016L21.624 11.496L19.32 11.952L15.888 12.768L15.84 12.792L15.888 12.864L17.424 13.008L18.096 13.056H19.728L22.752 13.272L23.544 13.8L24 14.424L23.928 14.928L22.704 15.528L21.072 15.144L17.232 14.232L15.936 13.92H15.744V14.016L16.848 15.096L18.84 16.896L21.36 19.224L21.48 19.8L21.168 20.28L20.832 20.232L18.624 18.552L17.76 17.808L15.84 16.2H15.72V16.368L16.152 17.016L18.504 20.544L18.624 21.624L18.456 21.96L17.832 22.176L17.184 22.056L15.792 20.136L14.3...
+                            <h3 style="color: var(--black); margin: 0 0 8px; font-size: 1.3em;">Claude Code</h3>
+                            <p style="font-size: 0.85em; margin: 0; color: var(--black);">Official & powerful 🚀</p>
                         </div>
                     </div>
                 </div>
@@ -708,7 +933,7 @@
             </section>
 
             <!-- Unified Endpoint -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2>The Unified <span class="highlight">Endpoint</span></h2>
                 <p style="font-size: 1.1em; max-width: 700px; margin: 0 auto 32px;">
                     A single company-hosted gateway to multiple AI providers
@@ -734,7 +959,7 @@
             </section>
 
             <!-- Get API Key -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2>Get your <span class="highlight">API Key</span></h2>
                 <div class="hand-box" style="max-width: 700px; margin: 0 auto;">
                     <div class="step-row">
@@ -761,7 +986,7 @@
             </section>
 
             <!-- Environment Variables -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2>Environment <span class="highlight">Variables</span></h2>
                 <p style="margin-bottom: 24px;">Add these to <code>~/.zshrc</code> or <code>~/.bashrc</code></p>
                 <div class="terminal" style="max-width: 800px; margin: 0 auto;">
@@ -769,7 +994,7 @@
                         <div class="terminal-dot red"></div>
                         <div class="terminal-dot yellow"></div>
                         <div class="terminal-dot green"></div>
-                        <span class="terminal-title">~/.zshrc</span>
+                        
                     </div>
                     <div class="terminal-body" style="font-size: 0.8em;">
                         <p class="comment"># Unified Endpoint Configuration</p>
@@ -827,21 +1052,23 @@
             </section>
 
             <!-- OpenCode Screenshot -->
-            <section data-background-color="#fffef9">
-                <div class="screenshot" style="max-width: 950px; margin: 0 auto;">
+            <section>
+                <div class="screenshot" style="max-width: 950px; margin: 0 auto; position: relative;">
+                    <div class="tape" style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(2deg);"></div>
+                    <div class="tape" style="position: absolute; bottom: -15px; right: 20%; transform: rotate(-1deg);"></div>
                     <img src="opencode-screenshot.png" alt="OpenCode TUI">
                 </div>
             </section>
 
             <!-- Install OpenCode -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2>Install <span class="highlight">OpenCode</span></h2>
                 <div class="terminal" style="max-width: 700px; margin: 0 auto;">
                     <div class="terminal-header">
                         <div class="terminal-dot red"></div>
                         <div class="terminal-dot yellow"></div>
                         <div class="terminal-dot green"></div>
-                        <span class="terminal-title">Quick Install</span>
+                        
                     </div>
                     <div class="terminal-body">
                         <p><span class="prompt">$</span> curl -fsSL https://opencode.ai/install | bash</p>
@@ -873,7 +1100,7 @@
             </section>
 
             <!-- OpenCode Config -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2>Configure <span class="highlight">OpenCode</span></h2>
                 <p style="margin-bottom: 16px;">Create <code>opencode.json</code> in your project root</p>
                 <div class="editor">
@@ -945,21 +1172,23 @@
             </section>
 
             <!-- Claude Code Screenshot -->
-            <section data-background-color="#fffef9">
-                <div class="screenshot" style="max-width: 950px; margin: 0 auto;">
+            <section>
+                <div class="screenshot" style="max-width: 950px; margin: 0 auto; position: relative;">
+                    <div class="tape" style="position: absolute; top: -15px; left: 20%; transform: rotate(-2deg);"></div>
+                    <div class="tape" style="position: absolute; top: -15px; right: 20%; transform: rotate(1deg);"></div>
                     <img src="claude-screenshot.png" alt="Claude Code Terminal">
                 </div>
             </section>
 
             <!-- Install Claude Code -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2>Install <span class="highlight">Claude Code</span></h2>
                 <div class="terminal" style="max-width: 700px; margin: 0 auto;">
                     <div class="terminal-header">
                         <div class="terminal-dot red"></div>
                         <div class="terminal-dot yellow"></div>
                         <div class="terminal-dot green"></div>
-                        <span class="terminal-title">npm install</span>
+                        
                     </div>
                     <div class="terminal-body">
                         <p><span class="prompt">$</span> npm install -g @anthropic-ai/claude-code</p>
@@ -971,7 +1200,7 @@
             </section>
 
             <!-- Claude Code Config -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2>Configure <span class="highlight">Claude Code</span></h2>
                 <p style="margin-bottom: 16px;">Create <code>~/.claude/settings.json</code></p>
                 <div class="editor">
@@ -1009,7 +1238,7 @@
             </section>
 
             <!-- Quick Reference -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2>Quick <span class="highlight">Reference</span></h2>
                 <div class="grid-2" style="align-items: stretch;">
                     <div class="hand-box" style="display: flex; flex-direction: column; min-height: 220px;">
@@ -1056,25 +1285,29 @@
             </section>
 
             <!-- Resources -->
-            <section data-background-color="#fffef9">
+            <section>
                 <h2><span class="highlight">Resources</span></h2>
                 <div class="resources-grid" style="max-width: 750px; margin: 32px auto 0;">
-                    <div class="resource-card coral">
+                    <div class="resource-card coral fragment" style="position: relative; --rot: -2deg; animation: float-gentle 6s ease-in-out infinite; transform: rotate(-2deg);">
+                        <div class="tape top-center"></div>
                         <span style="font-size: 2em;">🔑</span>
                         <h3>API Keys</h3>
                         <a href="https://ue-self-service.app.iu-it.org/" target="_blank" style="font-size: 0.85em;">ue-self-service.app.iu-it.org</a>
                     </div>
-                    <div class="resource-card teal">
+                    <div class="resource-card teal fragment" style="position: relative; --rot: 2deg; animation: float-gentle 7s ease-in-out infinite; transform: rotate(2deg); animation-delay: 1s;">
+                        <div class="tape top-center"></div>
                         <span style="font-size: 2em;">📚</span>
                         <h3>OpenCode Docs</h3>
                         <a href="https://opencode.ai/docs" target="_blank" style="font-size: 0.85em;">opencode.ai/docs</a>
                     </div>
-                    <div class="resource-card purple">
+                    <div class="resource-card purple fragment" style="position: relative; --rot: 1deg; animation: float-gentle 5s ease-in-out infinite; transform: rotate(1deg); animation-delay: 2s;">
+                        <div class="tape top-center"></div>
                         <i class="fa-brands fa-github"></i>
                         <h3>GitHub</h3>
                         <a href="https://github.com/sst/opencode" target="_blank" style="font-size: 0.85em;">github.com/sst/opencode</a>
                     </div>
-                    <div class="resource-card blue">
+                    <div class="resource-card blue fragment" style="position: relative; --rot: -3deg; animation: float-gentle 8s ease-in-out infinite; transform: rotate(-3deg); animation-delay: 0.5s;">
+                        <div class="tape top-center"></div>
                         <span style="font-size: 2em;">🤖</span>
                         <h3>Claude Docs</h3>
                         <a href="https://docs.anthropic.com" target="_blank" style="font-size: 0.85em;">docs.anthropic.com</a>
@@ -1083,8 +1316,8 @@
             </section>
 
             <!-- Final Slide -->
-            <section data-background-color="#fffef9" style="position: relative;">
-                <img src="https://media.giphy.com/media/mIZ9rPeMKefm0/giphy.gif" alt="" style="position: absolute; bottom: 20px; right: 40px; width: 200px; opacity: 0.8; border: 3px solid var(--ink); border-radius: 12px; box-shadow: 5px 5px 0 var(--ink);">
+            <section style="position: relative;">
+                <img class="robot-gif" src="https://media.giphy.com/media/mIZ9rPeMKefm0/giphy.gif" alt="Robot typing">
                 <h1 class="fun-title" style="font-size: 3.5em;">Let's go!</h1>
                 <p style="font-size: 1.3em; margin: 28px 0 40px;">Questions?</p>
                 <div class="url-box" style="font-size: 1.1em;">
