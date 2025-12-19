@@ -215,66 +215,71 @@
 
         /* Editor style wrapper */
         .editor {
-            background: #1e1e1e;
-            border-radius: 8px;
+            background: #0d1117;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 8px 8px 0 var(--ink);
+            box-shadow: 12px 12px 0 var(--purple);
             margin: 24px auto;
-            border: 3px solid var(--ink);
+            border: 4px solid var(--ink);
             max-width: 800px;
+            transform: rotate(-1deg);
         }
 
         .editor-header {
-            background: #323233;
-            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 14px 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid #3c3c3c;
+            gap: 10px;
+            border-bottom: 2px solid var(--purple);
         }
 
         .editor-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
+            border: 2px solid rgba(0,0,0,0.3);
         }
-        .editor-dot.red { background: #ff5f56; }
-        .editor-dot.yellow { background: #ffbd2e; }
-        .editor-dot.green { background: #27c93f; }
+        .editor-dot.red { background: #ff6b6b; }
+        .editor-dot.yellow { background: #ffd43b; }
+        .editor-dot.green { background: #51cf66; }
 
         .editor-tab {
-            margin-left: 16px;
-            padding: 6px 14px;
-            background: #1e1e1e;
-            border-radius: 6px 6px 0 0;
+            margin-left: 20px;
+            padding: 8px 16px;
+            background: var(--purple);
+            border-radius: 6px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75em;
-            color: #9d9d9d;
+            font-size: 0.8em;
+            color: white;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 600;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
         }
 
-        .editor-tab i { color: #f1fa8c; font-size: 0.9em; }
+        .editor-tab i { color: #ffd43b; font-size: 1em; }
 
         .editor-body {
             display: flex;
+            background: #0d1117;
         }
 
         .editor-gutter {
             padding: 20px 0;
-            background: #1e1e1e;
-            border-right: 1px solid #3c3c3c;
+            background: #161b22;
+            border-right: 2px solid #30363d;
             text-align: right;
-            min-width: 45px;
+            min-width: 50px;
         }
 
         .editor-gutter span {
             display: block;
-            padding: 0 12px;
+            padding: 0 14px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75em;
-            color: #6e7681 !important;
+            color: #8b949e !important;
             line-height: 1.8;
         }
 
@@ -282,14 +287,21 @@
             margin: 0;
             border: none;
             box-shadow: none;
-            background: transparent;
+            background: #0d1117;
             flex: 1;
         }
 
         .editor pre code {
             padding: 20px 24px;
             font-size: 1em;
+            background: #0d1117 !important;
+            color: #c9d1d9 !important;
         }
+
+        .editor pre code .hljs-attr { color: #79c0ff !important; }
+        .editor pre code .hljs-string { color: #a5d6ff !important; }
+        .editor pre code .hljs-literal { color: #ff7b72 !important; }
+        .editor pre code .hljs-number { color: #ffa657 !important; }
 
         /* Grid */
         .grid-2 {
@@ -666,8 +678,7 @@
                     <div class="fragment" style="transform: rotate(-3deg);">
                         <div style="background: var(--coral); color: white; padding: 20px 24px; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); position: relative; height: 180px;">
                             <span style="position: absolute; top: -20px; left: -15px; font-size: 3em; font-family: 'Permanent Marker', cursive; color: var(--ink);">1</span>
-                            <i class="fa-solid fa-plug" style="font-size: 2.5em; margin-bottom: 12px; display: block;"></i>
-                            <h3 style="color: white; margin: 0 0 8px; font-size: 1.3em;">Unified Endpoint</h3>
+                            <h3 style="color: white; margin: 0 0 8px; font-size: 1.3em; padding-top: 20px;">Unified Endpoint</h3>
                             <p style="font-size: 0.85em; margin: 0; opacity: 0.9;">The magic gateway ✨</p>
                         </div>
                         <div style="font-family: 'Permanent Marker', cursive; font-size: 1.8em; margin-top: 10px; transform: rotate(5deg);">↓</div>
@@ -704,19 +715,19 @@
                 </p>
                 <div class="grid-2" style="align-items: stretch;">
                     <div class="hand-box" style="display: flex; flex-direction: column;">
-                        <h3><i class="fa-solid fa-lightbulb" style="color: var(--coral);"></i> Why use it?</h3>
+                        <h3>💡 Why use it?</h3>
                         <ul class="feature-list" style="flex: 1;">
-                            <li><i class="fa-solid fa-check"></i> <span><strong>Out of tokens on Cursor?</strong> Switch seamlessly to another tool</span></li>
-                            <li><i class="fa-solid fa-check"></i> <span><strong>Try different AI tools</strong> without separate subscriptions</span></li>
-                            <li><i class="fa-solid fa-check"></i> <span><strong>Company-managed</strong> billing & access control</span></li>
+                            <li>✓ <span><strong>Out of tokens on Cursor?</strong> Switch seamlessly to another tool</span></li>
+                            <li>✓ <span><strong>Try different AI tools</strong> without separate subscriptions</span></li>
+                            <li>✓ <span><strong>Company-managed</strong> billing & access control</span></li>
                         </ul>
                     </div>
                     <div class="hand-box" style="display: flex; flex-direction: column;">
-                        <h3><i class="fa-solid fa-server" style="color: var(--teal);"></i> Providers included</h3>
+                        <h3>🖥️ Providers included</h3>
                         <ul class="feature-list" style="flex: 1;">
-                            <li><i class="fa-solid fa-check"></i> <span><strong>Anthropic</strong> — Claude Opus, Sonnet, Haiku</span></li>
-                            <li><i class="fa-solid fa-check"></i> <span><strong>OpenAI</strong> — GPT-4o, o1, and more</span></li>
-                            <li><i class="fa-solid fa-check"></i> <span><strong>Google</strong> — Gemini Pro, Ultra</span></li>
+                            <li>✓ <span><strong>Anthropic</strong> — Claude Opus, Sonnet, Haiku</span></li>
+                            <li>✓ <span><strong>OpenAI</strong> — GPT-4o, o1, and more</span></li>
+                            <li>✓ <span><strong>Google</strong> — Gemini Pro, Ultra</span></li>
                         </ul>
                     </div>
                 </div>
@@ -745,7 +756,7 @@
                     </div>
                 </div>
                 <div class="info-box warning mt-2" style="max-width: 700px; margin-left: auto; margin-right: auto;">
-                    <p><i class="fa-solid fa-triangle-exclamation" style="color: var(--coral);"></i> <strong>Important:</strong> Never commit API keys to git!</p>
+                    <p>⚠️ <strong>Important:</strong> Never commit API keys to git!</p>
                 </div>
             </section>
 
@@ -870,7 +881,7 @@
                         <div class="editor-dot red"></div>
                         <div class="editor-dot yellow"></div>
                         <div class="editor-dot green"></div>
-                        <div class="editor-tab"><i class="fa-solid fa-gear"></i> opencode.json</div>
+                        <div class="editor-tab">⚙️ opencode.json</div>
                     </div>
                     <div class="editor-body">
                         <div class="editor-gutter">
@@ -955,7 +966,7 @@
                     </div>
                 </div>
                 <div class="info-box mt-2" style="max-width: 700px; margin-left: auto; margin-right: auto;">
-                    <p><i class="fa-solid fa-circle-check" style="color: var(--teal);"></i> Verify: <code>claude --version</code></p>
+                    <p>✅ Verify: <code>claude --version</code></p>
                 </div>
             </section>
 
@@ -968,7 +979,7 @@
                         <div class="editor-dot red"></div>
                         <div class="editor-dot yellow"></div>
                         <div class="editor-dot green"></div>
-                        <div class="editor-tab"><i class="fa-solid fa-gear"></i> settings.json</div>
+                        <div class="editor-tab">⚙️ settings.json</div>
                     </div>
                     <div class="editor-body">
                         <div class="editor-gutter">
@@ -1049,12 +1060,12 @@
                 <h2>Resources</h2>
                 <div class="resources-grid" style="max-width: 750px; margin: 32px auto 0;">
                     <div class="resource-card coral">
-                        <i class="fa-solid fa-key"></i>
+                        <span style="font-size: 2em;">🔑</span>
                         <h3>API Keys</h3>
                         <a href="https://ue-self-service.app.iu-it.org/" target="_blank" style="font-size: 0.85em;">ue-self-service.app.iu-it.org</a>
                     </div>
                     <div class="resource-card teal">
-                        <i class="fa-solid fa-book"></i>
+                        <span style="font-size: 2em;">📚</span>
                         <h3>OpenCode Docs</h3>
                         <a href="https://opencode.ai/docs" target="_blank" style="font-size: 0.85em;">opencode.ai/docs</a>
                     </div>
@@ -1064,7 +1075,7 @@
                         <a href="https://github.com/sst/opencode" target="_blank" style="font-size: 0.85em;">github.com/sst/opencode</a>
                     </div>
                     <div class="resource-card blue">
-                        <i class="fa-solid fa-robot"></i>
+                        <span style="font-size: 2em;">🤖</span>
                         <h3>Claude Docs</h3>
                         <a href="https://docs.anthropic.com" target="_blank" style="font-size: 0.85em;">docs.anthropic.com</a>
                     </div>
