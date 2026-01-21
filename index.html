@@ -25,12 +25,12 @@
             --orange: #ff922b;
             --pink: #f06595;
         }
-        
+
         .reveal-viewport {
             background-color: #f4f4f0;
             position: relative;
         }
-        
+
         /* Halftone dot patches - tight newspaper style */
         .reveal-viewport::before {
             content: '';
@@ -44,18 +44,18 @@
             background-image: radial-gradient(circle, #000 1px, transparent 1px);
             background-size: 4px 4px;
             opacity: 0.18;
-            mask-image: 
+            mask-image:
                 radial-gradient(ellipse 35% 40% at 0% 100%, black 0%, transparent 70%),
                 radial-gradient(ellipse 30% 35% at 100% 0%, black 0%, transparent 70%),
                 radial-gradient(ellipse 25% 30% at 95% 95%, black 0%, transparent 60%);
-            -webkit-mask-image: 
+            -webkit-mask-image:
                 radial-gradient(ellipse 35% 40% at 0% 100%, black 0%, transparent 70%),
                 radial-gradient(ellipse 30% 35% at 100% 0%, black 0%, transparent 70%),
                 radial-gradient(ellipse 25% 30% at 95% 95%, black 0%, transparent 60%);
             mask-composite: add;
             -webkit-mask-composite: source-over;
         }
-        
+
         .reveal-viewport::after {
             content: '';
             position: fixed;
@@ -65,22 +65,22 @@
             bottom: 0;
             pointer-events: none;
             z-index: 0;
-            background-image: 
+            background-image:
                 radial-gradient(circle, #ff00ff 1px, transparent 1px),
                 radial-gradient(circle, #00f0ff 1px, transparent 1px);
             background-size: 5px 5px, 6px 6px;
             background-position: 0 0, 2px 2px;
             opacity: 0.15;
-            mask-image: 
+            mask-image:
                 radial-gradient(ellipse 40% 45% at 100% 100%, black 0%, transparent 60%),
                 radial-gradient(ellipse 35% 40% at 5% 10%, black 0%, transparent 65%);
-            -webkit-mask-image: 
+            -webkit-mask-image:
                 radial-gradient(ellipse 40% 45% at 100% 100%, black 0%, transparent 60%),
                 radial-gradient(ellipse 35% 40% at 5% 10%, black 0%, transparent 65%);
             mask-composite: add;
             -webkit-mask-composite: source-over;
         }
-        
+
         /* Remove Tape */
         .tape { display: none !important; }
 
@@ -99,14 +99,14 @@
             align-items: center;
             text-align: center;
         }
-        
+
         /* First slide - extra emphasis on centering */
         .reveal .slides section:first-child {
             text-align: center !important;
             justify-content: center !important;
             align-items: center !important;
         }
-        
+
         .reveal p, .reveal li, .reveal td, .reveal span {
             color: var(--ink);
             line-height: 1.7;
@@ -120,7 +120,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         /* FLASHY Title for first slide */
         .fun-title {
             font-family: 'Permanent Marker', cursive !important;
@@ -128,7 +128,7 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             color: var(--ink);
-            text-shadow: 
+            text-shadow:
                 -4px -4px 0 var(--cyan),
                 4px 4px 0 var(--magenta),
                 0 0 40px rgba(255, 0, 255, 0.3);
@@ -138,7 +138,7 @@
             position: relative;
             display: inline-block;
         }
-        
+
         .fun-title::before {
             content: '';
             position: absolute;
@@ -151,22 +151,22 @@
             transform: rotate(1deg);
             box-shadow: 8px 8px 0 var(--ink);
         }
-        
+
         @keyframes title-pulse {
-            0%, 100% { 
-                text-shadow: 
+            0%, 100% {
+                text-shadow:
                     -4px -4px 0 var(--cyan),
                     4px 4px 0 var(--magenta),
                     0 0 40px rgba(255, 0, 255, 0.3);
             }
-            50% { 
-                text-shadow: 
+            50% {
+                text-shadow:
                     -6px -6px 0 var(--cyan),
                     6px 6px 0 var(--magenta),
                     0 0 60px rgba(255, 0, 255, 0.5);
             }
         }
-        
+
         .sketch-subtitle {
             font-family: 'Permanent Marker', cursive !important;
             font-size: 1.5em;
@@ -183,12 +183,12 @@
             justify-content: center;
             align-items: center; /* Ensure horizontal centering */
         }
-        
+
         /* Ensure left-aligned content stays left-aligned */
         .reveal .slides section.has-text-left {
             align-items: flex-start;
         }
-        
+
         .reveal p, .reveal li, .reveal td {
             color: var(--ink);
             line-height: 1.7;
@@ -215,21 +215,21 @@
         }
 
         .robot-gif {
-            position: absolute; 
-            bottom: 80px; 
-            right: 80px; 
-            width: 250px; 
-            opacity: 1; 
-            border: 4px solid var(--ink); 
-            border-radius: 4px; 
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            width: 250px;
+            opacity: 1;
+            border: 4px solid var(--ink);
+            border-radius: 4px;
             box-shadow: 8px 8px 0 var(--ink);
             transform: rotate(-5deg);
             z-index: 10;
         }
-        
+
         /* Code and terminal elements use JetBrains Mono */
-        .reveal code, 
-        .terminal-body, 
+        .reveal code,
+        .terminal-body,
         .terminal-body p,
         .terminal-body span,
         .editor-body,
@@ -244,12 +244,12 @@
             font-family: 'JetBrains Mono', monospace !important;
             color: inherit !important;
         }
-        
+
         /* Ensure editor/code text colors are visible */
         .editor pre code {
             color: #c9d1d9 !important;
         }
-        
+
         .editor pre code .hljs-punctuation,
         .editor pre code .hljs-bracket {
             color: #c9d1d9 !important;
@@ -269,13 +269,13 @@
 
         /* Adjust size for h3 since Marker is larger */
         .reveal h3 {
-            font-size: 1.5em; 
+            font-size: 1.5em;
             margin-bottom: 0.5em;
             color: var(--ink);
         }
 
         .cmyk-text {
-            text-shadow: 
+            text-shadow:
                 -3px -3px 0 rgba(0, 240, 255, 0.6), /* Cyan */
                 3px 3px 0 rgba(255, 0, 255, 0.6);   /* Magenta */
             mix-blend-mode: multiply;
@@ -295,7 +295,7 @@
             );
             transform: rotate(-1deg);
         }
-        
+
         /* Replace .hand-box with this style implicitly */
         .hand-box {
             background: white;
@@ -345,7 +345,7 @@
             display: inline-block;
             font-family: 'Permanent Marker', cursive !important;
         }
-        
+
         .reveal h2 .highlight::after { display: none; } /* Remove old highlighter */
 
         /* Tape Effect - darker/grungier */
@@ -369,7 +369,7 @@
         .sticker.coral { background: var(--magenta); color: white !important; transform: rotate(3deg); }
         .sticker.teal { background: var(--cyan); color: var(--black) !important; transform: rotate(-2deg); }
         .sticker.purple { background: var(--purple); color: white !important; transform: rotate(2deg); }
-        
+
         /* Terminal override for Zine look */
         .terminal, .editor {
             border: 4px solid var(--black);
@@ -630,13 +630,13 @@
 
         /* Robot Adjustment */
         .robot-gif {
-            position: absolute; 
-            bottom: 50px; 
-            right: 80px; 
-            width: 200px; 
-            opacity: 0.8; 
-            border: 3px solid var(--ink); 
-            border-radius: 12px; 
+            position: absolute;
+            bottom: 50px;
+            right: 80px;
+            width: 200px;
+            opacity: 0.8;
+            border: 3px solid var(--ink);
+            border-radius: 12px;
             box-shadow: 5px 5px 0 var(--ink);
             transform: rotate(-5deg);
         }
@@ -1034,13 +1034,14 @@
             <!-- Environment Variables -->
             <section>
                 <h2>Environment <span class="highlight">Variables</span></h2>
-                <p style="margin-bottom: 24px;">Add these to <code>~/.zshrc</code> or <code>~/.bashrc</code></p>
+                <p>Add these to <code>~/.zshrc</code> or <code>~/.bashrc</code></p>
+                <p style="margin-bottom: 24px;">or use a structure you prefer and run source ;-)</p>
                 <div class="terminal" style="max-width: 800px; margin: 0 auto;">
                     <div class="terminal-header">
                         <div class="terminal-dot red"></div>
                         <div class="terminal-dot yellow"></div>
                         <div class="terminal-dot green"></div>
-                        
+
                     </div>
                     <div class="terminal-body" style="font-size: 0.8em;">
                         <p class="comment"># Unified Endpoint Configuration</p>
@@ -1055,16 +1056,6 @@
                         <p><span class="keyword">export</span> GEMINI_API_KEY=<span class="string">"YOUR_KEY"</span></p>
                     </div>
                 </div>
-                <div class="terminal fragment" style="max-width: 400px; margin: 24px auto 0;">
-                    <div class="terminal-header">
-                        <div class="terminal-dot red"></div>
-                        <div class="terminal-dot yellow"></div>
-                        <div class="terminal-dot green"></div>
-                    </div>
-                    <div class="terminal-body" style="padding: 16px 24px;">
-                        <p><span class="prompt">$</span> source ~/.zshrc</p>
-                    </div>
-                </div>
             </section>
 
             <!-- OpenCode Intro -->
@@ -1076,17 +1067,17 @@
                 <p style="font-size: 1.1em; margin-bottom: 28px;">Open source AI coding agent for the terminal</p>
 
                 <div style="max-width: 700px; margin: 0 auto 28px;">
-                    <div class="check-item fragment">
-                        <span style="font-size: 1.6em; margin-right: 8px;">🤖</span>
-                        <span><strong>75+ LLM providers</strong> — Claude, GPT, Gemini, local models, and more</span>
+                    <div class="check-item">
+                        <span style="font-size: 1.6em; margin-right: 8px;">🖥️</span>
+                        <span><strong>Desktop app</strong> — Native application for seamless coding experience</span>
                     </div>
-                    <div class="check-item fragment">
+                    <div class="check-item">
                         <span style="font-size: 1.6em; margin-right: 8px;">✨</span>
                         <span><strong>Beautiful terminal UI</strong> — Rich TUI with syntax highlighting</span>
                     </div>
-                    <div class="check-item fragment">
-                        <span style="font-size: 1.6em; margin-right: 8px;">🔥</span>
-                        <span><strong>Fully open source</strong> — 40K+ GitHub stars, community driven</span>
+                    <div class="check-item">
+                        <span style="font-size: 1.6em; margin-right: 8px;">🔌</span>
+                        <span><strong>Cool plugins like oh-my-opencode</strong> — Extensible and customizable</span>
                     </div>
                 </div>
 
@@ -1114,7 +1105,7 @@
                         <div class="terminal-dot red"></div>
                         <div class="terminal-dot yellow"></div>
                         <div class="terminal-dot green"></div>
-                        
+
                     </div>
                     <div class="terminal-body">
                         <p><span class="prompt">$</span> curl -fsSL https://opencode.ai/install | bash</p>
@@ -1148,7 +1139,7 @@
             <!-- OpenCode Config -->
             <section>
                 <h2>Configure <span class="highlight">OpenCode</span></h2>
-                <p style="margin-bottom: 16px;">Create <code>opencode.json</code> in your project root</p>
+                <p style="margin-bottom: 16px;">Create <code>opencode.json</code> in <code>~/.config/opencode</code></p>
                 <div class="editor">
                     <div class="editor-header">
                         <div class="editor-dot red"></div>
@@ -1196,15 +1187,15 @@
                 <p style="font-size: 1.1em; margin-bottom: 28px;">Anthropic's official CLI coding agent</p>
 
                 <div style="max-width: 700px; margin: 0 auto 28px;">
-                    <div class="check-item fragment">
-                        <span style="font-size: 1.6em; margin-right: 8px;">🧠</span>
-                        <span><strong>Extended thinking</strong> — Deep reasoning for complex coding tasks</span>
+                    <div class="check-item">
+                        <span style="font-size: 1.6em; margin-right: 8px;">🌟</span>
+                        <span><strong>Most popular</strong> — Many integrations, resources and tools (eg. laravel-simplifier)</span>
                     </div>
-                    <div class="check-item fragment">
+                    <div class="check-item">
                         <span style="font-size: 1.6em; margin-right: 8px;">⚡</span>
                         <span><strong>Official Anthropic tool</strong> — Built and maintained by the Claude team</span>
                     </div>
-                    <div class="check-item fragment">
+                    <div class="check-item">
                         <span style="font-size: 1.6em; margin-right: 8px;">🚀</span>
                         <span><strong>Agentic coding</strong> — Runs commands, edits files, creates PRs</span>
                     </div>
@@ -1234,7 +1225,7 @@
                         <div class="terminal-dot red"></div>
                         <div class="terminal-dot yellow"></div>
                         <div class="terminal-dot green"></div>
-                        
+
                     </div>
                     <div class="terminal-body">
                         <p><span class="prompt">$</span> npm install -g @anthropic-ai/claude-code</p>
@@ -1299,7 +1290,7 @@
                             </tr>
                             <tr>
                                 <td style="font-weight: 600;">Config</td>
-                                <td><code>./opencode.json</code></td>
+                                <td><code>~/.config/opencode/opencode.json</code></td>
                             </tr>
                             <tr>
                                 <td style="font-weight: 600;">Run</td>
