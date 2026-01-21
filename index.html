@@ -1225,10 +1225,32 @@
                         <div class="terminal-dot red"></div>
                         <div class="terminal-dot yellow"></div>
                         <div class="terminal-dot green"></div>
-
                     </div>
                     <div class="terminal-body">
-                        <p><span class="prompt">$</span> npm install -g @anthropic-ai/claude-code</p>
+                        <p><span class="prompt">$</span> curl -fsSL https://claude.ai/install.sh | bash</p>
+                    </div>
+                </div>
+                <p class="mt-2" style="color: #666; font-size: 0.9em;">Or use npm / homebrew:</p>
+                <div class="grid-2" style="max-width: 600px; margin: 16px auto 0;">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <div class="terminal-body" style="padding: 14px 20px; font-size: 0.85em;">
+                            <p><span class="prompt">$</span> npm i -g @anthropic-ai/claude-code</p>
+                        </div>
+                    </div>
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <div class="terminal-body" style="padding: 14px 20px; font-size: 0.85em;">
+                            <p><span class="prompt">$</span> brew install --cask claude-code</p>
+                        </div>
                     </div>
                 </div>
                 <div class="info-box mt-2" style="max-width: 700px; margin-left: auto; margin-right: auto;">
@@ -1306,7 +1328,7 @@
                         <table class="simple-table">
                             <tr>
                                 <td style="width: 60px; font-weight: 600;">Install</td>
-                                <td><code style="font-size: 0.7em; white-space: nowrap;">npm i -g @anthropic-ai/claude-code</code></td>
+                                <td><code style="font-size: 0.7em; white-space: nowrap;">curl -fsSL https://claude.ai/install.sh | bash</code></td>
                             </tr>
                             <tr>
                                 <td style="font-weight: 600;">Config</td>
